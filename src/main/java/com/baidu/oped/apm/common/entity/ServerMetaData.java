@@ -1,0 +1,58 @@
+package com.baidu.oped.apm.common.entity;
+
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.List;
+
+import org.springframework.data.jpa.domain.AbstractPersistable;
+
+/**
+ * The persistent class for the apm_server_meta_data database table.
+ * 
+ */
+@Entity
+@Table(name="apm_server_meta_data")
+public class ServerMetaData extends AbstractPersistable<Long> implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Column(name="vm_args", nullable=false, length=1024)
+	private String vmArgs;
+
+	//bi-directional many-to-one association to ServiceInfo
+	@OneToMany(mappedBy="serverMetaData")
+	private List<ServiceInfo> serviceInfos;
+
+	public ServerMetaData() {
+	}
+
+	public String getVmArgs() {
+		return this.vmArgs;
+	}
+
+	public void setVmArgs(String vmArgs) {
+		this.vmArgs = vmArgs;
+	}
+
+	public List<ServiceInfo> getServiceInfos() {
+		return this.serviceInfos;
+	}
+
+	public void setServiceInfos(List<ServiceInfo> serviceInfos) {
+		this.serviceInfos = serviceInfos;
+	}
+
+	public ServiceInfo addServiceInfo(ServiceInfo serviceInfo) {
+		getServiceInfos().add(serviceInfo);
+		serviceInfo.setServerMetaData(this);
+
+		return serviceInfo;
+	}
+
+	public ServiceInfo removeServiceInfo(ServiceInfo serviceInfo) {
+		getServiceInfos().remove(serviceInfo);
+		serviceInfo.setServerMetaData(null);
+
+		return serviceInfo;
+	}
+
+}
