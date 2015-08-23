@@ -2,6 +2,7 @@ package com.baidu.oped.apm.common.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
@@ -24,7 +25,7 @@ public class SqlMetaData extends AbstractPersistable<Long> implements Serializab
 	@Column(name="hash_code", nullable=false)
 	private int hashCode;
 
-	@Column(length=512)
+	@Column(name = "`sql`",length=512)
 	private String sql;
 
 	@Column(name="start_time", nullable=false)

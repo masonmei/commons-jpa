@@ -19,8 +19,11 @@ public class ServerMetaData extends AbstractPersistable<Long> implements Seriali
 	private String vmArgs;
 
 	//bi-directional many-to-one association to ServiceInfo
-	@OneToMany(mappedBy="serverMetaData")
+	@OneToMany(mappedBy="serverMetaData", cascade = CascadeType.ALL)
 	private List<ServiceInfo> serviceInfos;
+
+	@OneToOne(mappedBy = "serverMetaData")
+	private AgentInfo agentInfo;
 
 	public ServerMetaData() {
 	}
@@ -55,4 +58,11 @@ public class ServerMetaData extends AbstractPersistable<Long> implements Seriali
 		return serviceInfo;
 	}
 
+	public AgentInfo getAgentInfo() {
+		return agentInfo;
+	}
+
+	public void setAgentInfo(AgentInfo agentInfo) {
+		this.agentInfo = agentInfo;
+	}
 }

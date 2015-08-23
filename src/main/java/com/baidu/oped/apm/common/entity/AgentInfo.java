@@ -2,9 +2,12 @@ package com.baidu.oped.apm.common.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -53,8 +56,8 @@ public class AgentInfo extends AbstractPersistable<Long> implements Serializable
     private String version;
 
     //bi-directional one-to-one association to ServerMetaData
-    @OneToOne(fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "server_meta_data_id")
     private ServerMetaData serverMetaData;
 
     public AgentInfo() {
